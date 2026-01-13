@@ -1,12 +1,9 @@
-// import ChatWidget from '../components/ChatWidget';
-
-import ChatWidget from '@/components/ChatWidget';
-import Image from 'next/image';
 import Link from 'next/link';
+import Image from 'next/image';
 
-export default function Home() {
+export default function Contact() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-black relative" style={{ fontFamily: 'var(--font-smooch-sans)' }}>
+    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-black relative">
       {/* Navigation in upper left corner */}
       <nav className="absolute top-6 left-6 z-20">
         <ul className="flex gap-6 text-white">
@@ -40,22 +37,14 @@ export default function Home() {
           />
         </Link>
       </div>
+
       <div className="z-10 max-w-5xl w-full items-center justify-center font-mono text-sm flex flex-col">
-        <h1 className="text-4xl font-bold text-white mb-6">Welcome to My Portfolio</h1>
-        <div className="my-6">
-          <Image
-            src="/-5884509876388563802_121.jpg"
-            alt="Profile Photo"
-            width={300}
-            height={300}
-            className="object-cover rounded-full"
-          />
-        </div>
-        <p className="mt-6 text-xl text-white">I am a Full Stack AI Developer -  building the Future.</p>
+        <h1 className="text-4xl font-bold text-white mb-6">Contact</h1>
+        <p className="mt-6 text-xl text-white">Get in touch with me.</p>
       </div>
-      <ChatWidget />
     </main>
   );
 }
 
-//npm run dev
+
+
