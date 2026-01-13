@@ -1,0 +1,118 @@
+
+> my-ai-portfolio@0.1.0 dev
+> next dev
+
+   ▲ Next.js 16.0.8 (Turbopack)
+   - Local:         http://localhost:3000
+   - Network:       http://100.115.92.196:3000
+   - Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 1417ms
+ ⨯ Error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+    at async POST (src/app/api/chat/route.ts:16:29)
+  14 |
+  15 |   // 1. Embed the user's latest query
+> 16 |   const embeddingResponse = await openai.embeddings.create({
+     |                             ^
+  17 |     model: 'text-embedding-3-small',
+  18 |     input: lastMessage.content.replace(/\n/g, ' '),
+  19 |   });
+ ⨯ Error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+    at async POST (src/app/api/chat/route.ts:16:29)
+  14 |
+  15 |   // 1. Embed the user's latest query
+> 16 |   const embeddingResponse = await openai.embeddings.create({
+     |                             ^
+  17 |     model: 'text-embedding-3-small',
+  18 |     input: lastMessage.content.replace(/\n/g, ' '),
+  19 |   });
+ POST /api/chat 500 in 7.6s (compile: 7.5s, render: 151ms)
+ ⨯ Error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+    at async POST (src/app/api/chat/route.ts:16:29)
+  14 |
+  15 |   // 1. Embed the user's latest query
+> 16 |   const embeddingResponse = await openai.embeddings.create({
+     |                             ^
+  17 |     model: 'text-embedding-3-small',
+  18 |     input: lastMessage.content.replace(/\n/g, ' '),
+  19 |   });
+ ⨯ Error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+    at async POST (src/app/api/chat/route.ts:16:29)
+  14 |
+  15 |   // 1. Embed the user's latest query
+> 16 |   const embeddingResponse = await openai.embeddings.create({
+     |                             ^
+  17 |     model: 'text-embedding-3-small',
+  18 |     input: lastMessage.content.replace(/\n/g, ' '),
+  19 |   });
+ POST /api/chat 500 in 2.1s (compile: 2.1s, render: 13ms)
+ ○ Compiling / ...
+ GET / 200 in 5.8s (compile: 5.5s, render: 265ms)
+ ⨯ Error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+    at async POST (src/app/api/chat/route.ts:16:29)
+  14 |
+  15 |   // 1. Embed the user's latest query
+> 16 |   const embeddingResponse = await openai.embeddings.create({
+     |                             ^
+  17 |     model: 'text-embedding-3-small',
+  18 |     input: lastMessage.content.replace(/\n/g, ' '),
+  19 |   });
+ ⨯ Error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+    at async POST (src/app/api/chat/route.ts:16:29)
+  14 |
+  15 |   // 1. Embed the user's latest query
+> 16 |   const embeddingResponse = await openai.embeddings.create({
+     |                             ^
+  17 |     model: 'text-embedding-3-small',
+  18 |     input: lastMessage.content.replace(/\n/g, ' '),
+  19 |   });
+ POST /api/chat 500 in 2.2s (compile: 2.1s, render: 16ms)
+ ✓ Compiled in 1157ms
+Chat API error Error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+    at async POST (src/app/api/chat/route.ts:17:31)
+  15 |
+  16 |     // 1. Embed the user's latest query
+> 17 |     const embeddingResponse = await openai.embeddings.create({
+     |                               ^
+  18 |       model: 'text-embedding-3-small',
+  19 |       input: lastMessage.content.replace(/\n/g, ' '),
+  20 |     }); {
+  status: 429,
+  headers: Headers {  },
+  requestID: 'req_c3c997064d8242eeb0881a8ea9f8d58a',
+  error: {
+  message: 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.',
+  type: 'insufficient_quota',
+  param: null,
+  code: 'insufficient_quota'
+},
+  code: 'insufficient_quota',
+  param: null,
+  type: 'insufficient_quota'
+}
+ POST /api/chat 500 in 2.8s
+ GET / 200 in 364ms (compile: 138ms, render: 225ms)
+Chat API error Error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.
+    at async POST (src/app/api/chat/route.ts:17:31)
+  15 |
+  16 |     // 1. Embed the user's latest query
+> 17 |     const embeddingResponse = await openai.embeddings.create({
+     |                               ^
+  18 |       model: 'text-embedding-3-small',
+  19 |       input: lastMessage.content.replace(/\n/g, ' '),
+  20 |     }); {
+  status: 429,
+  headers: Headers {  },
+  requestID: 'req_5f71866eb7e74a3ba5545f7154c3c2c4',
+  error: {
+  message: 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.',
+  type: 'insufficient_quota',
+  param: null,
+  code: 'insufficient_quota'
+},
+  code: 'insufficient_quota',
+  param: null,
+  type: 'insufficient_quota'
+}
+ POST /api/chat 500 in 2.3s

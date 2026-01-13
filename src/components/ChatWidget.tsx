@@ -12,7 +12,7 @@ type Message = {
   content: string;
 };
 
-function useChatFallback() {
+function useChat() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -24,28 +24,92 @@ function useChatFallback() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
+
     const userMessage: Message = {
       id: `${Date.now()}-user`,
       role: 'user',
       content: input,
     };
+
+    // Append user message locally
     setMessages((prev) => [...prev, userMessage]);
     setIsLoading(true);
+    setInput('');
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      const payload = { messages: [...messages, userMessage] };
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        const contentType = res.headers.get('content-type') || '';
+        let errorText = 'API error';
+        if (contentType.includes('application/json')) {
+          try {
+            const data = await res.json();
+            errorText = data?.error ?? JSON.stringify(data);
+          } catch (e) {
+            errorText = await res.text();
+          }
+        } else {
+          errorText = await res.text();
+        }
+
+        setMessages((prev) => [
+          ...prev,
+          { id: `${Date.now()}-ai`, role: 'assistant', content: `Error: ${errorText}` },
+        ]);
+        setIsLoading(false);
+        return;
+      }
+
+      if (!res.body) {
+        setIsLoading(false);
+        return;
+      }
+
+      // Create an empty assistant message to fill while streaming
+      const assistantId = `${Date.now()}-ai`;
+      setMessages((prev) => [...prev, { id: assistantId, role: 'assistant', content: '' }]);
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+
+        // SSE-style chunks separated by double newline
+        const parts = buffer.split(/\n\n/);
+        buffer = parts.pop() || '';
+
+        for (const part of parts) {
+          const m = part.match(/^data:\s?(.*)$/s);
+          if (m && m[1]) {
+            const chunk = m[1];
+            setMessages((prev) =>
+              prev.map((msg) => (msg.id === assistantId ? { ...msg, content: (msg.content ?? '') + chunk } : msg))
+            );
+          }
+        }
+      }
+
+      setIsLoading(false);
+    } catch (err) {
+      // on error, append an error message
+      // eslint-disable-next-line no-console
+      console.error('Chat error', err);
       setMessages((prev) => [
         ...prev,
-        {
-          id: `${Date.now()}-ai`,
-          role: 'assistant',
-          content: "I'm a demo assistant. (No real backend connected)",
-        },
+        { id: `${Date.now()}-ai-error`, role: 'assistant', content: 'Error contacting API' },
       ]);
       setIsLoading(false);
-    }, 1200);
-
-    setInput('');
+    }
   };
 
   return {
@@ -59,7 +123,7 @@ function useChatFallback() {
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChatFallback();
+  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
