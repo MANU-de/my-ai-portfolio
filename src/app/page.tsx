@@ -58,4 +58,6 @@ export default function Home() {
   );
 }
 
+// To run the development server, use the following command: 
+//cd ~/my-ai-portfolio
 //npm run dev
