@@ -159,3 +159,4 @@ Chat API error Error: 429 You exceeded your current quota, please check your pla
  ⚠ Fast Refresh had to perform a full reload when ./node_modules/next/dist/client/image-component.js changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
  GET / 200 in 392ms (compile: 174ms, render: 219ms)
  GET / 200 in 196ms (compile: 4ms, render: 192ms)
+[?25h
