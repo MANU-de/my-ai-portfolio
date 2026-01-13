@@ -1,5 +1,3 @@
-// import ChatWidget from '../components/ChatWidget';
-
 import ChatWidget from '@/components/ChatWidget';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -58,6 +56,3 @@ export default function Home() {
   );
 }
 
-// To run the development server, use the following command: 
-//cd ~/my-ai-portfolio
-//npm run dev

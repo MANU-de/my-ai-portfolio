@@ -89,7 +89,7 @@ function useChat() {
         buffer = parts.pop() || '';
 
         for (const part of parts) {
-          const m = part.match(/^data:\s?(.*)$/s);
+          const m = part.match(/^data:\s?([\s\S]*)$/);
           if (m && m[1]) {
             const chunk = m[1];
             setMessages((prev) =>
@@ -149,9 +149,7 @@ export default function ChatWidget() {
               <p className="text-sm text-gray-500 text-center mt-10">
                 Hi! Ask me about Manuelas projects, skills, or experience.
               </p>
-            // eslint-disable-next-line react/jsx-no-comment-textnodes
             )}
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             {messages.map((m: { id: Key | null | undefined; role: string; content: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined; }) => (
               <div
                 key={m.id}

@@ -1,14 +1,35 @@
 import OpenAI from 'openai';
 import { createClient } from '@supabase/supabase-js';
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
 
 export const runtime = 'edge'; // Use Edge for speed
 
 export async function POST(req: Request) {
+  // Validate required environment variables early to avoid module init errors
+  if (!process.env.OPENAI_API_KEY) {
+    return new Response(JSON.stringify({ error: 'OPENAI_API_KEY is missing' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !/^https?:\/\//i.test(process.env.NEXT_PUBLIC_SUPABASE_URL)) {
+    return new Response(JSON.stringify({ error: 'NEXT_PUBLIC_SUPABASE_URL is invalid' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  if (!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return new Response(JSON.stringify({ error: 'NEXT_PUBLIC_SUPABASE_ANON_KEY is missing' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  // Create clients after env validation to avoid module initialization errors
+  const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
+
   try {
     const { messages } = await req.json();
     const lastMessage = messages[messages.length - 1];
@@ -74,7 +95,20 @@ export async function POST(req: Request) {
     // Provide a clearer JSON error for the frontend to display
     // eslint-disable-next-line no-console
     console.error('Chat API error', err);
-    const message = (err as any)?.message || String(err);
+    
+    const error = err as { status?: number; code?: string; message?: string };
+    
+    // Handle quota exceeded errors gracefully
+    if (error.status === 429 || error.code === 'insufficient_quota' || error.message?.includes('quota')) {
+      return new Response(JSON.stringify({ 
+        error: 'AI service is temporarily unavailable due to quota limits. Please try again later or contact the site administrator.' 
+      }), {
+        status: 503,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+    
+    const message = error.message || String(err);
     return new Response(JSON.stringify({ error: message }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
