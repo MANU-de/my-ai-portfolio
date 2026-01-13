@@ -32,6 +32,17 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+.env.local
+.env.development
+.env.production
+.env.test
+
+# local editor / system
+.vscode/
+.idea/
+.envrc
+.firebase/
+.history/
 
 # vercel
 .vercel
