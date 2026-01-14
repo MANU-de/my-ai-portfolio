@@ -1,4 +1,4 @@
-*Note: This project is proprietary. Please see the [LICENSE]() LICENSE file for usage restrictions.*
+*Note: This project is proprietary. Please see the [LICENSE](https://github.com/MANU-de/my-ai-portfolio/blob/main/LICENSE.md) file for usage restrictions.*
 
 # AI Portfolio
 
