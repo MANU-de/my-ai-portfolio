@@ -142,7 +142,7 @@ Supabase pgvector performs cosine similarity search to find the most relevant do
 
 ```typescript
 const systemPrompt = `
-You are an AI assistant for Alex's Portfolio. 
+You are an AI assistant for Manuela's Portfolio. 
 You act as a professional representative.
 Use the following pieces of context to answer the user's question.
 If the answer is not in the context, politely say you don't have that information.
