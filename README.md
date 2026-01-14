@@ -1,3 +1,5 @@
+*Note: This project is proprietary. Please see the [LICENSE]() LICENSE file for usage restrictions.*
+
 # AI Portfolio
 
 A modern, AI-powered personal portfolio website built with Next.js 16, React 19, and TypeScript. This project features an intelligent AI chat assistant that answers questions about the portfolio owner using Retrieval Augmented Generation (RAG).
